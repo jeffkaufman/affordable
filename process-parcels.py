@@ -58,11 +58,11 @@ def get_records():
 def start():
   records = get_records()
   records.sort()
-  print("valuation per sqft, address, zone, sqft, valuation, link")
+  print("valuation per sqft\taddress\tzone\tsqft\tvaluation\tlink")
   for score, parcel_id, pretty_assessment, sqft, zone, address in records:
     if score < 1:
       continue
-    print("%.0f, %s, %s, %s, %s, https://gis.vgsi.com/somervillema/Parcel.aspx?Pid=%s" % (
+    print("%.0f\t%s\t%s\t%s\t%s\thttps://gis.vgsi.com/somervillema/Parcel.aspx?Pid=%s" % (
       score, address, zone, sqft, pretty_assessment, parcel_id
     ))
     #print("%.2f: %s (#%s) -- %s @ %s in %s" % (
