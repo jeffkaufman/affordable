@@ -28,13 +28,13 @@ class ParcelParser(HTMLParser):
     if sqft > 0 and zone in ['MR4', 'MR5', 'MR6']:
       score = assessment / sqft
     return [score, self.parcel_id, pretty_assessment, sqft, zone, address]
-    
+
   def handle_starttag(self, tag, attrs):
     if tag == "span":
       for k, v in attrs:
         if k == "id" and v in self.values:
           self.state = v
-    
+
   def handle_endtag(self, tag):
     self.state = "initial"
 
@@ -55,9 +55,7 @@ def get_records():
       records.append(parser.record())
   return records
 
-def start():
-  records = get_records()
-  records.sort()
+def print_records(records):
   print("valuation per sqft\taddress\tzone\tsqft\tvaluation\tlink")
   for score, parcel_id, pretty_assessment, sqft, zone, address in records:
     if score < 1:
@@ -68,6 +66,10 @@ def start():
     #print("%.2f: %s (#%s) -- %s @ %s in %s" % (
     #  score, address, parcel_id, sqft, pretty_assessment, zone))
 
-      
+def start():
+  records = get_records()
+  records.sort()
+  print_records(records)
+
 if __name__ == "__main__":
   start()
